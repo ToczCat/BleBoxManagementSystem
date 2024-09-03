@@ -1,0 +1,35 @@
+services:
+  bbms.backend:
+    image: ${DOCKER_REGISTRY-}bbmsbackend
+    build:
+      context: .
+      dockerfile: BBMS.Backend/Dockerfile
+
+  bbms.gateway:
+    image: ${DOCKER_REGISTRY-}bbmsgateway
+    build:
+      context: .
+      dockerfile: BBMS.Gateway/Dockerfile
+
+  bbms.identity:
+    image: ${DOCKER_REGISTRY-}bbmsidentity
+    build:
+      context: .
+      dockerfile: BBMS.Identity/Dockerfile
+
+  bbms.interface:
+    image: ${DOCKER_REGISTRY-}bbmsinterface
+    build:
+      context: .
+      dockerfile: BBMS.Interface/Dockerfile
+
+  bbms.storage:
+    image: ${DOCKER_REGISTRY-}bbmsstorage
+    build:
+      context: .
+      dockerfile: BBMS.Storage/Dockerfile
+
+  bbms.dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:8.1
+    ports:
+    - "18888:18888"
