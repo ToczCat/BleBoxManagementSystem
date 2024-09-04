@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBMS.Gateway", "BBMS.Gateway\BBMS.Gateway.csproj", "{EA44756B-96B7-457F-9F2A-9ED007306BC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBMS.Gateway", "BBMS.Gateway\BBMS.Gateway.csproj", "{EA44756B-96B7-457F-9F2A-9ED007306BC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBMS.Backend", "BBMS.Backend\BBMS.Backend.csproj", "{67F12D2F-17D2-423C-9CD4-F7FF15E74AF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBMS.Backend", "BBMS.Backend\BBMS.Backend.csproj", "{67F12D2F-17D2-423C-9CD4-F7FF15E74AF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBMS.Identity", "BBMS.Identity\BBMS.Identity.csproj", "{EDD1BA16-6F34-4074-B750-8CC0F8A387CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBMS.Identity", "BBMS.Identity\BBMS.Identity.csproj", "{EDD1BA16-6F34-4074-B750-8CC0F8A387CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBMS.Storage", "BBMS.Storage\BBMS.Storage.csproj", "{E1FE1FF7-088E-44D5-8F9E-ED0424C46ECC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBMS.Storage", "BBMS.Storage\BBMS.Storage.csproj", "{E1FE1FF7-088E-44D5-8F9E-ED0424C46ECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBMS.Interface", "BBMS.Interface\BBMS.Interface.csproj", "{8AFB87FC-6A0C-408D-BAD3-DB42F9EC70AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBMS.Interface", "BBMS.Interface\BBMS.Interface.csproj", "{8AFB87FC-6A0C-408D-BAD3-DB42F9EC70AF}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D4DA9FA0-FDE4-4A21-B140-E23C7835AEE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBMS.Defaults", "..\BBMS.Defaults\BBMS.Defaults.csproj", "{7D71623C-8EE3-4761-B5CA-6D1780D3FA10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{D4DA9FA0-FDE4-4A21-B140-E23C7835AEE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4DA9FA0-FDE4-4A21-B140-E23C7835AEE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4DA9FA0-FDE4-4A21-B140-E23C7835AEE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D71623C-8EE3-4761-B5CA-6D1780D3FA10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D71623C-8EE3-4761-B5CA-6D1780D3FA10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D71623C-8EE3-4761-B5CA-6D1780D3FA10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D71623C-8EE3-4761-B5CA-6D1780D3FA10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,10 @@
+﻿{
+  "SharedConfig": {
+    "BackendServiceName": "bbms.backend",
+    "GatewayServiceName": "bbms.gateway",
+    "IdentityServiceName": "bbms.identity",
+    "InterfaceServiceName": "bbms.interface",
+    "StorageServiceName": "bbms.storage",
+    "DashboardConnectionString": "http://bbms.dashboard:18889"
+  }
+}

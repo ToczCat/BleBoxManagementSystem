@@ -3,12 +3,16 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "bbms.gateway",
+      "composeLaunchUrl": "http://localhost:18888",
       "serviceActions": {
         "bbms.backend": "StartDebugging",
         "bbms.gateway": "StartDebugging",
         "bbms.identity": "StartDebugging",
         "bbms.interface": "StartDebugging",
-        "bbms.storage": "StartDebugging"
+        "bbms.storage": "StartDebugging",
+        "bbms.dashboard": "StartWithoutDebugging"
       }
     }
   }
