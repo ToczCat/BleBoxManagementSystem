@@ -1,0 +1,21 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "BBMS.Defaults";
+
+package auth;
+
+service Auth {
+  rpc Register (UserRequest) returns (LoginReply);
+  rpc Login (UserRequest) returns (LoginReply);
+}
+
+message UserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginReply {
+  bool success = 1;
+  string username = 2;
+  string token = 3;
+}

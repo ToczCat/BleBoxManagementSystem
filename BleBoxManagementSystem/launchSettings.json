@@ -5,7 +5,7 @@
       "commandVersion": "1.0",
       "composeLaunchAction": "LaunchBrowser",
       "composeLaunchServiceName": "bbms.gateway",
-      "composeLaunchUrl": "http://localhost:18888",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "serviceActions": {
         "bbms.backend": "StartDebugging",
         "bbms.gateway": "StartDebugging",

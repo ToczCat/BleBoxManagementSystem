@@ -1,6 +1,5 @@
 using BBMS.Defaults;
 using BBMS.Defaults.Models;
-using BBMS.Storage.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +13,7 @@ builder.Services.AddGrpc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.MapGrpcService<GreeterService>();
+//app.MapGrpcService<GreeterService>();
 app.MapDefaultEndpoints();
 
 app.Run();

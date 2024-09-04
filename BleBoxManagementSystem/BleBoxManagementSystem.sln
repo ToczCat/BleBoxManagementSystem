@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBMS.Interface", "BBMS.Inte
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D4DA9FA0-FDE4-4A21-B140-E23C7835AEE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBMS.Defaults", "..\BBMS.Defaults\BBMS.Defaults.csproj", "{7D71623C-8EE3-4761-B5CA-6D1780D3FA10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBMS.Defaults", "..\BBMS.Defaults\BBMS.Defaults.csproj", "{7D71623C-8EE3-4761-B5CA-6D1780D3FA10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
