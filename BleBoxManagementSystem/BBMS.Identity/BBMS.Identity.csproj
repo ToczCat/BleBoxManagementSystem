@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" />
     <Protobuf Include="..\..\BBMS.Defaults\Protos\auth.proto" GrpcServices="Server" />
+    <Protobuf Include="..\..\BBMS.Defaults\Protos\user.proto" GrpcServices="Client" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,17 +5,50 @@ option csharp_namespace = "BBMS.Defaults";
 package auth;
 
 service Auth {
-  rpc Register (UserRequest) returns (LoginReply);
-  rpc Login (UserRequest) returns (LoginReply);
+  rpc Check (CheckRequest) returns (CheckReply);
+  rpc Register (GuestRequest) returns (RegisterReply);
+  rpc Login (GuestRequest) returns (LoginReply);
+  rpc Update (UpdateRequest) returns (LoginReply);
+  rpc Delete (UserRequest) returns (DeleteReply);
+}
+
+message CheckRequest {}
+
+message GuestRequest {
+  string username = 1;
+  string password = 2;
 }
 
 message UserRequest {
   string username = 1;
+}
+
+message UpdateRequest {
+  string username = 1;
   string password = 2;
+  string role = 3;
+}
+
+message CheckReply {
+  bool success = 1;
+  bool is_system_fresh = 2;
+  string message = 3;
+}
+
+message RegisterReply {
+  bool success = 1;
+  string username = 2;
+  string message = 3;
 }
 
 message LoginReply {
   bool success = 1;
   string username = 2;
   string token = 3;
+  string message = 4;
+}
+
+message DeleteReply {
+  bool success = 1;
+  string message = 2;
 }

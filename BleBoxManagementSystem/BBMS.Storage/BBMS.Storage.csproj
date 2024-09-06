@@ -15,14 +15,11 @@
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.65.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <Protobuf Include="..\..\BBMS.Defaults\Protos\user.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\BBMS.Defaults\BBMS.Defaults.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

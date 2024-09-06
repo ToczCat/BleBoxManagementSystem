@@ -5,6 +5,11 @@
     "IdentityServiceName": "bbms.identity",
     "InterfaceServiceName": "bbms.interface",
     "StorageServiceName": "bbms.storage",
-    "DashboardConnectionString": "http://bbms.dashboard:18889"
+    "DashboardConnectionString": "http://bbms.dashboard:18889",
+    "DefaultServiceGrpcPort": "8080",
+    "DefaultServiceGrpcScheme": "http",
+    "SecretiestToken": "secretiest key 83747823098324893209587923048920849320845920-75894073890578294037890758",
+    "Issuer": "http://bbms.front",
+    "Audience": "http://bbms.gateway"
   }
 }

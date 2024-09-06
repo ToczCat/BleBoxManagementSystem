@@ -1,54 +1,134 @@
 using BBMS.Defaults;
+using BBMS.Defaults.Models;
 using Grpc.Core;
+using Grpc.Net.Client;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace BBMS.Identity.Services;
-public class AuthService(ILogger<AuthService> logger) : Auth.AuthBase
+
+public class AuthService(ILogger<AuthService> logger, IOptions<SharedConfig> sharedConfig) : Auth.AuthBase
 {
-    public override Task<LoginReply> Register(UserRequest request, ServerCallContext context)
+    private readonly GrpcChannel _storageChannel = GrpcChannel.ForAddress(
+        $"{sharedConfig.Value.DefaultServiceGrpcScheme}://" +
+        $"{sharedConfig.Value.StorageServiceName}:" +
+        $"{sharedConfig.Value.DefaultServiceGrpcPort}");
+
+    public async override Task<CheckReply> Check(CheckRequest request, ServerCallContext context)
+    {
+        var client = new Defaults.User.UserClient(_storageChannel);
+        var reply = await client.CheckUsersAsync(new UserCheckRequest());
+
+        return new CheckReply
+        {
+            Success = reply.Success,
+            IsSystemFresh = reply.IsSystemFresh,
+            Message = reply.Message
+        };
+    }
+
+    public async override Task<RegisterReply> Register(GuestRequest request, ServerCallContext context)
     {
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
-        var token = CreateToken(request.Username, "Admin");
 
-        return Task.FromResult(new LoginReply
+        var client = new Defaults.User.UserClient(_storageChannel);
+        var reply = await client.RegisterAsync(new UserRegisterRequest
         {
-            Success = true,
             Username = request.Username,
-            Token = token
+            HashedPassword = hashedPassword
         });
+
+        return new RegisterReply
+        {
+            Success = reply.Success,
+            Username = reply.Username,
+            Message = reply.Message
+        };
     }
 
-    public override Task<LoginReply> Login(UserRequest request, ServerCallContext context)
+    public async override Task<LoginReply> Login(GuestRequest request, ServerCallContext context)
     {
-        var hashedPassword = "test"; //from db
-
-        var check = BCrypt.Net.BCrypt.Verify(request.Password, hashedPassword);
-        var token = CreateToken(request.Username, "Admin");
-
-        return Task.FromResult(new LoginReply
+        var client = new Defaults.User.UserClient(_storageChannel);
+        var reply = await client.LoginAsync(new UserLoginRequest
         {
-            Success = true,
-            Username = request.Username,
-            Token = token
+            Username = request.Username
         });
+
+        var check = BCrypt.Net.BCrypt.Verify(request.Password, reply.HashedPassword);
+        if (!reply.Success || !check)
+            return new LoginReply
+            {
+                Success = false,
+                Username = reply.Username,
+                Token = string.Empty,
+                Message = "Wrong username or password"
+            };
+
+        var token = CreateToken(request.Username, reply.Role);
+
+        return new LoginReply
+        {
+            Success = reply.Success,
+            Username = reply.Username,
+            Token = token,
+            Message = reply.Message
+        };
     }
 
-    private string CreateToken(string username, string claim)
+    public async override Task<LoginReply> Update(UpdateRequest request, ServerCallContext context)
+    {
+        var client = new Defaults.User.UserClient(_storageChannel);
+        var reply = await client.UpdateAsync(new UserUpdateRequest
+        {
+            Username = request.Username,
+            HashedPassword = string.IsNullOrEmpty(request.Password) ? BCrypt.Net.BCrypt.HashPassword(request.Password) : string.Empty,
+            Role = request.Role,
+        });
+
+        return new LoginReply
+        {
+            Success = reply.Success,
+            Username = reply.Username,
+            Message = reply.Message
+        };
+    }
+
+    public async override Task<DeleteReply> Delete(UserRequest request, ServerCallContext context)
+    {
+        var client = new Defaults.User.UserClient(_storageChannel);
+        var reply = await client.DeleteAsync(new UserActionRequest
+        {
+            Username = request.Username
+        });
+
+        return new DeleteReply
+        {
+            Success = reply.Success,
+            Message = reply.Message
+        };
+    }
+
+    private string CreateToken(string username, string role)
     {
         List<Claim> claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, username),
-            new Claim(ClaimTypes.Role, claim)
+            new Claim(ClaimTypes.Role, role)
         };
 
         //must be minimum 128 bit
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretiest key 83747823098324893209587923048920849320845920-75894073890578294037890758"));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(sharedConfig.Value.SecretiestToken));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-        var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddMinutes(30), signingCredentials: creds);
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.Now.AddMinutes(30),
+            signingCredentials: creds,
+            issuer: sharedConfig.Value.Issuer,
+            audience: sharedConfig.Value.Audience);
 
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 

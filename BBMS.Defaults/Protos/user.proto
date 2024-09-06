@@ -1,0 +1,60 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "BBMS.Defaults";
+
+package user;
+
+service User {
+  rpc CheckUsers (UserCheckRequest) returns (UserCheckReply);
+  rpc Register (UserRegisterRequest) returns (UserCredReply);
+  rpc Login (UserLoginRequest) returns (UserLoginReply);
+  rpc Update (UserUpdateRequest) returns (UserCredReply);
+  rpc Delete (UserActionRequest) returns (UserDeleteReply);
+}
+
+message UserCheckRequest {}
+
+message UserRegisterRequest {
+  string username = 1;
+  string hashed_password = 2;
+}
+
+message UserLoginRequest {
+  string username = 1;
+}
+
+message UserUpdateRequest {
+  string username = 1;
+  string hashed_password = 2;
+  string role = 3;
+}
+
+message UserActionRequest {
+  string username = 1;
+}
+
+message UserCheckReply {
+  bool success = 1;
+  bool is_system_fresh = 2;
+  string message = 3;
+}
+
+message UserCredReply {
+  bool success = 1;
+  string username = 2;
+  string role = 3;
+  string message = 4;
+}
+
+message UserLoginReply {
+  bool success = 1;
+  string username = 2;
+  string hashed_password = 3;
+  string role = 4;
+  string message = 5;
+}
+
+message UserDeleteReply {
+  bool success = 1;
+  string message = 2;
+}
